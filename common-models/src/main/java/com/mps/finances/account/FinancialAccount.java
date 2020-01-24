@@ -5,6 +5,7 @@ import com.mps.finances.types.AccountType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 public abstract class FinancialAccount {
 

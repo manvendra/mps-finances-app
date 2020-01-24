@@ -8,6 +8,7 @@ public class StocksToSell extends FinancialAccount {
     private String StockSymbol;
 
     public StocksToSell(String SockBroker,String description) {
+
         super(SockBroker,description, AccountType.STOCK);
     }
 }

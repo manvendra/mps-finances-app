@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.MonthDay;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class CreditCardAccount extends FinancialAccount {
 
     public CreditCardAccount(String creditCardCompanyName,String description){
         super(creditCardCompanyName,description, AccountType.CREDIT_CARD);
+
 
     }
 
