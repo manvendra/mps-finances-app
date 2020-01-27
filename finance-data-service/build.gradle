@@ -36,6 +36,7 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 	compile 'org.modelmapper:modelmapper:2.3.6'
+	compile("com.h2database:h2:1.4.191")
 
 
 	annotationProcessor 'org.projectlombok:lombok'

@@ -5,17 +5,19 @@ import com.mps.finances.account.FinancialAccount;
 import com.mps.finances.data.repository.jpa.FinanceDataJpaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class FinanceDataServiceImpl implements FinanceDataService {
 
   /*  @Autowired
     FinanceDataRepository financeDataRepository;*/
 
     @Autowired
-    FinanceDataJpaRepository financeJpaRepository;
+    FinanceDataJpaRepository financeDataJpaRepository;
 
 /*    @Autowired
     FinanceDataCouchbaseRepository financeDataCouchbaseRepository;*/
@@ -27,14 +29,14 @@ public class FinanceDataServiceImpl implements FinanceDataService {
     @Override
     public List<FinancialAccount> getAllAcountsInfoByFirstName(String accountHolderName) {
 
-        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeJpaRepository.findByPersonFirstName(accountHolderName);
+        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByPersonFirstName(accountHolderName);
 
         return getDtoFromEntity(financeAccountsEntities);
     }
 
     @Override
     public List<FinancialAccount> getAllAcountsInfoByAccoutId(Long accountId) {
-        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeJpaRepository.findByPersonPersonId(accountId);
+        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByPersonPersonId(accountId);
 
         return getDtoFromEntity(financeAccountsEntities);
     }
