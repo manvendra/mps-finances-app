@@ -2,22 +2,21 @@ package com.mps.finances.account;
 
 import com.mps.finances.types.AccountType;
 import com.mps.finances.types.BankAccountType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+
+@Data
+@NoArgsConstructor
 public class BankAccount extends FinancialAccount {
 
+    private Long            id;
     private BankAccountType bankAccountType;
-    BigDecimal currentBalance;
+    private BigDecimal      currentBalance;
 
-    public BankAccount(String bankName, String description){
-
-        super(bankName,description,AccountType.BANK);
+    public BankAccount(String bankName, String description) {
+        super(bankName, description, AccountType.BANK);
     }
-
-
 }

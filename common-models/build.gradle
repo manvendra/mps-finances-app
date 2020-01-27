@@ -6,8 +6,8 @@ plugins {
 
 group 'com.mps.finances'
 version '1.0-SNAPSHOT'
-
 sourceCompatibility = 1.8
+
 
 
 repositories {
@@ -15,12 +15,14 @@ repositories {
     mavenLocal()
 }
 
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-couchbase'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.11.2'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
 }
 

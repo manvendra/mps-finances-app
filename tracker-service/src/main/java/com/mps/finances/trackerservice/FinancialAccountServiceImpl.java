@@ -1,14 +1,11 @@
 package com.mps.finances.trackerservice;
 
 import com.mps.finances.account.FinancialAccount;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class FinancialAccountServiceImpl implements FinancialAccountService {
 
-    @Autowired
-    FinancialAccountRepository financialAccountRepository;
 
     @Override
     public List<FinancialAccount> getAllAcountsInfo(String accountHolderName) {
@@ -22,7 +19,6 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
 
     @Override
     public long saveAccountInformation(FinancialAccount financialAccount) {
-        FinancialAccount financialAccount1 = financialAccountRepository.save(financialAccount);
-
+        FinancialAccount financialAccount1 = financialAccountRepository.save(financialAccount); return 0;
     }
 }
