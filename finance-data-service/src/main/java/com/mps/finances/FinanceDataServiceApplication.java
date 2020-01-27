@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "com.mps.finances.data.repository.jpa")
 @SpringBootApplication
 public class FinanceDataServiceApplication {
 

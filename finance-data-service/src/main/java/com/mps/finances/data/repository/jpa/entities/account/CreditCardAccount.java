@@ -5,18 +5,15 @@ import com.mps.finances.types.AccountType;
 import com.mps.finances.types.CreditCardType;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
 @Entity
+@DiscriminatorValue("CREDIT_CARD")
 public class CreditCardAccount extends FinancialAccount {
 
-    @Id
-    @GeneratedValue
-    Long id;
+
 
     private CreditCardType creditCardType;
     private BigDecimal     cardLimit;
@@ -25,7 +22,5 @@ public class CreditCardAccount extends FinancialAccount {
     private int            statementGenerationDateOfMonth;
     private int            daysBetweenGenerationAndDueDate;
     private String         lastFourDigits;
-    {
-        setAccountType(AccountType.CREDIT_CARD);
-    }
+
 }

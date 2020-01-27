@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-@ConditionalOnProperty(value = "com.mps.finance.jpa.repo.enabled", havingValue = "true")
+//@ConditionalOnProperty(value = "com.mps.finance.jpa.repo.enabled", havingValue = "true")
 public interface FinanceDataJpaRepository extends JpaRepository<FinancialAccount, Long>, FinanceDataRepository {
 
-    List<FinancialAccount> findByPersonPersonId(Long personId);
+    List<FinancialAccount> findByPersonId(Long personId);
 
     List<FinancialAccount> findByPersonFirstName(String firstName);
 }

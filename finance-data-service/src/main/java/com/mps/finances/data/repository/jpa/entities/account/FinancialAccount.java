@@ -5,14 +5,18 @@ import com.mps.finances.data.repository.jpa.entities.Person;
 import com.mps.finances.types.AccountType;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @Data
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "ACCOUNT_TYPE")
+
 public abstract class FinancialAccount {
+
+    @Id
+    @GeneratedValue
+    Long id;
 
     private String financialInstitutionName;
     private String description;
@@ -20,6 +24,4 @@ public abstract class FinancialAccount {
     @ManyToOne
     private Person person;
 
-    @Enumerated(EnumType.STRING)
-    private AccountType accountType;
 }

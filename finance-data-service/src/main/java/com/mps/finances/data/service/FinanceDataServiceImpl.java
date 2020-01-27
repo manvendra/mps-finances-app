@@ -36,7 +36,7 @@ public class FinanceDataServiceImpl implements FinanceDataService {
 
     @Override
     public List<FinancialAccount> getAllAcountsInfoByAccoutId(Long accountId) {
-        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByPersonPersonId(accountId);
+        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByPersonId(accountId);
 
         return getDtoFromEntity(financeAccountsEntities);
     }
