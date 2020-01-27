@@ -3,3 +3,6 @@ spring:
     config:
       name: finance-data-service
       uri: http://localhost:8080
+
+logging:
+  config: ${spring.cloud.config.uri}/*/default/master/logback.xml
