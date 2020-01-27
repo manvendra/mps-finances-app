@@ -1,0 +1,27 @@
+Index: logback.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- logback.xml	(date 1578518587485)
++++ logback.xml	(date 1578518587485)
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<configuration>
++    <include resource="org/springframework/boot/logging/logback/base.xml"/>
++
++    <logger name="org.springframework.boot" level="DEBUG" additivity="false">
++        <appender-ref ref="CONSOLE"/>
++    </logger>
++
++    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
++        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
++            <level>INFO</level>
++        </filter>
++        <encoder>
++            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) [%10thread] %cyan(%-40logger{36}) - %msg%n</pattern>
++        </encoder>
++    </appender>
++
++</configuration>
+\ No newline at end of file
