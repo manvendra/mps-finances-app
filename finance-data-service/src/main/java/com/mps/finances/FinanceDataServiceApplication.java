@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories(basePackages = "com.mps.finances.data.repository.jpa")
 @SpringBootApplication
+@EnableEurekaClient
 public class FinanceDataServiceApplication {
 
 	public static void main(String[] args) {
