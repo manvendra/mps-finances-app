@@ -5,4 +5,4 @@ spring:
       uri: http://localhost:8080
 
 logging:
-  config: ${spring.cloud.config.uri}/*/default/master/logback.xml
+  config: ${spring.cloud.config.uri}/finance-data-service/default/master/logback.xml
