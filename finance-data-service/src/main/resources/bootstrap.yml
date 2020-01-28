@@ -7,3 +7,11 @@ spring:
 
 logging:
   config: ${spring.cloud.config.uri}/finance-data-service/default/master/finance-data-service-logback.xml
+  level:
+    org:
+      hibernate:
+        SQL: TRUE
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

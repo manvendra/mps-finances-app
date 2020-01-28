@@ -3,15 +3,13 @@ package com.mps.finances.data.controller;
 import com.mps.finances.account.FinancialAccount;
 import com.mps.finances.data.service.FinanceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController("data/api")
+@RestController
+@RequestMapping("data/FinancialAccount/")
 public class FinanceDataController {
 
     @Autowired
