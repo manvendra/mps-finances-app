@@ -22,6 +22,6 @@ public class CreditCardAccount extends FinancialAccount {
     private int            daysBetweenGenerationAndDueDate;
     private String         lastFourDigits;
 
-    private List<String>    registeredAt;
+    private String    registeredAt;
 
 }
