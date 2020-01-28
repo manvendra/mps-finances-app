@@ -12,6 +12,5 @@ logging:
       hibernate:
         SQL: DEBUG
         type: TRACE
-          descriptor:
-            sql: TRACE
+
 

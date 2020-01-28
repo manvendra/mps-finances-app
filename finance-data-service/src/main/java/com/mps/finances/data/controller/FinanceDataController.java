@@ -24,4 +24,9 @@ public class FinanceDataController {
     public List<FinancialAccount> getAllAccountsForUser(@RequestParam("firstName") String firstName) {
         return financeDataService.getAllAcountsInfoByFirstName(firstName);
     }
+
+    @PostMapping
+    public FinancialAccount saveFinancialAccountData(@RequestBody FinancialAccount financialAccount){
+       return financeDataService.saveAccountInformation(financialAccount);
+    }
 }

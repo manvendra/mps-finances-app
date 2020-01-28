@@ -3,13 +3,14 @@ package com.mps.finances.data.service;
 
 import com.mps.finances.account.FinancialAccount;
 import com.mps.finances.data.repository.jpa.FinanceDataJpaRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class FinanceDataServiceImpl implements FinanceDataService {
 
@@ -28,17 +29,21 @@ public class FinanceDataServiceImpl implements FinanceDataService {
 
     @Override
     public List<FinancialAccount> getAllAcountsInfoByFirstName(String accountHolderName) {
+        log.debug("accountHolderName");
+        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities
+                = financeDataJpaRepository.findByPersonFirstName(accountHolderName);
 
-        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByPersonFirstName(accountHolderName);
-
-        return getDtoFromEntity(financeAccountsEntities);
+        return getDtoListFromEntityList(financeAccountsEntities);
     }
+
+
 
     @Override
     public List<FinancialAccount> getAllAcountsInfoByAccoutId(Long accountId) {
-        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByPersonId(accountId);
+        List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities
+                = financeDataJpaRepository.findByPersonId(accountId);
 
-        return getDtoFromEntity(financeAccountsEntities);
+        return getDtoListFromEntityList(financeAccountsEntities);
     }
 
     @Override
@@ -47,8 +52,11 @@ public class FinanceDataServiceImpl implements FinanceDataService {
     }
 
     @Override
-    public long saveAccountInformation(FinancialAccount financialAccount) {
-        return 0;
+    public FinancialAccount saveAccountInformation(FinancialAccount financialAccount) {
+        com.mps.finances.data.repository.jpa.entities.account.FinancialAccount financialAccountEntity =
+                getEntityFromDto(financialAccount);
+        financialAccountEntity= financeDataJpaRepository.save(financialAccountEntity);
+        return getDtoFromEntity(financialAccountEntity);
     }
 
     @Override
@@ -56,9 +64,24 @@ public class FinanceDataServiceImpl implements FinanceDataService {
         return null;
     }
 
-    private List<FinancialAccount> getDtoFromEntity(List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities) {
+
+
+
+    private List<FinancialAccount> getDtoListFromEntityList(List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities) {
         return financeAccountsEntities.stream()
-                                      .map(e -> modelMapper.map(e, FinancialAccount.class))
+                                      .map(this::getDtoFromEntity)
                                       .collect(Collectors.toList());
     }
+    private FinancialAccount getDtoFromEntity(com.mps.finances.data.repository.jpa.entities.account.FinancialAccount financeAccountsEntities) {
+        return  modelMapper.map(financeAccountsEntities, FinancialAccount.class);
+    }
+
+    private com.mps.finances.data.repository.jpa.entities.account.FinancialAccount
+    getEntityFromDto(FinancialAccount financeAccountDto) {
+        return modelMapper.map(
+                financeAccountDto,
+                com.mps.finances.data.repository.jpa.entities.account.FinancialAccount.class);
+    }
+
+
 }

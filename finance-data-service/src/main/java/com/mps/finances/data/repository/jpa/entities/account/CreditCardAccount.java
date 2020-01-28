@@ -7,13 +7,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
 @DiscriminatorValue("CREDIT_CARD")
 public class CreditCardAccount extends FinancialAccount {
-
-
 
     private CreditCardType creditCardType;
     private BigDecimal     cardLimit;
@@ -22,5 +21,7 @@ public class CreditCardAccount extends FinancialAccount {
     private int            statementGenerationDateOfMonth;
     private int            daysBetweenGenerationAndDueDate;
     private String         lastFourDigits;
+
+    private List<String>    registeredAt;
 
 }
