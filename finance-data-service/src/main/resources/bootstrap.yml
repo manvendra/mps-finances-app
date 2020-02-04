@@ -5,6 +5,7 @@ spring:
       uri: http://localhost:8080
 
 
+
 logging:
   config: ${spring.cloud.config.uri}/finance-data-service/default/master/finance-data-service-logback.xml
   level:
@@ -12,5 +13,3 @@ logging:
       hibernate:
         SQL: DEBUG
         type: TRACE
-
-

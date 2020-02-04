@@ -15,8 +15,7 @@ public class StocksToSell extends FinancialAccount {
     private int    numberOfStock;
     private String StockSymbol;
 
-    public StocksToSell(String SockBroker, String description) {
-
-        super(SockBroker, description, AccountType.STOCK);
+    {
+        super.setAccountType(AccountType.STOCK);
     }
 }

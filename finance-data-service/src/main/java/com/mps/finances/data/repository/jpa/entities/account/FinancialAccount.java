@@ -19,10 +19,10 @@ public abstract class FinancialAccount {
     @GeneratedValue
     Long id;
 
-    private String financialInstitutionName;
-    private String description;
+    private String      financialInstitutionName;
+    private String      description;
 
     @ManyToOne
-    private Person person;
+    private Person owner;
 
 }

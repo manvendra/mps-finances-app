@@ -24,7 +24,7 @@ public class CreditCardAccount extends FinancialAccount {
     private String         lastFourDigits;
     private String         registeredAt;
 
-    public CreditCardAccount(String creditCardCompanyName, String description) {
-        super(creditCardCompanyName, description, AccountType.CREDIT_CARD);
+    {
+        super.setAccountType(AccountType.CREDIT_CARD);
     }
 }

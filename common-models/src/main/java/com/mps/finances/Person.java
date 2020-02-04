@@ -1,6 +1,5 @@
 package com.mps.finances;
 
-import com.google.i18n.phonenumbers.Phonenumber;
 import com.mps.finances.account.FinancialAccount;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +12,10 @@ public class Person {
     private Long   id;
     private String userId;
     private String firstName;
-    private String LastName;
+    private String lastName;
 
-    private Phonenumber.PhoneNumber phoneNumber;
-    private String                  emailAddress;
+    private String phone;
+    private String email;
 
     private List<FinancialAccount> financialAccounts;
 }

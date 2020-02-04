@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories(basePackages = "com.mps.finances.data.repository.jpa")
 @EntityScan(basePackages = "com.mps.finances.data.repository.jpa.entities")
-@ComponentScan(basePackages = "com.mps.finances.data")
+@ComponentScan(basePackages = "com.mps.finances")
 @SpringBootApplication
 @EnableEurekaClient
 public class FinanceDataServiceApplication {

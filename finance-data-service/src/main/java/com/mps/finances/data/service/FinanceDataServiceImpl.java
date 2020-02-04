@@ -31,7 +31,7 @@ public class FinanceDataServiceImpl implements FinanceDataService {
     public List<FinancialAccount> getAllAcountsInfoByFirstName(String accountHolderName) {
         log.debug("accountHolderName");
         List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities
-                = financeDataJpaRepository.findByPersonFirstName(accountHolderName);
+                = financeDataJpaRepository.findByOwnerFirstName(accountHolderName);
 
         return getDtoListFromEntityList(financeAccountsEntities);
     }
@@ -41,7 +41,7 @@ public class FinanceDataServiceImpl implements FinanceDataService {
     @Override
     public List<FinancialAccount> getAllAcountsInfoByAccoutId(Long accountId) {
         List<com.mps.finances.data.repository.jpa.entities.account.FinancialAccount> financeAccountsEntities
-                = financeDataJpaRepository.findByPersonId(accountId);
+                = financeDataJpaRepository.findByOwnerId(accountId);
 
         return getDtoListFromEntityList(financeAccountsEntities);
     }
