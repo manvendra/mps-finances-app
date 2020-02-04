@@ -13,8 +13,9 @@ import java.math.BigDecimal;
 public class BankAccount extends FinancialAccount {
 
     private Long            id;
-    private BankAccountType bankAccountType;
     private BigDecimal      currentBalance;
+    private BankAccountType bankAccountType;
+
 
     public BankAccount(String bankName, String description) {
         super(bankName, description, AccountType.BANK);

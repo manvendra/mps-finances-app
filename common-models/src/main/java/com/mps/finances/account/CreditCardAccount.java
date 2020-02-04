@@ -16,13 +16,13 @@ public class CreditCardAccount extends FinancialAccount {
     private Long id;
 
     private CreditCardType creditCardType;
-    private BigDecimal     cardLimit;
+    private BigDecimal     limit;
     private BigDecimal     currentBalance;
     private BigDecimal     statementBalance;
-    private int            statementGenerationDateOfMonth;
-    private int            daysBetweenGenerationAndDueDate;
+    private int            billGenerationDayOfMonth;
+    private int            daysBetweenBillAndDueDate;
     private String         lastFourDigits;
-
+    private String         registeredAt;
 
     public CreditCardAccount(String creditCardCompanyName, String description) {
         super(creditCardCompanyName, description, AccountType.CREDIT_CARD);
