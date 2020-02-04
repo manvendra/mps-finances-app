@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("data/FinancialAccount/")
+@RequestMapping("data/financialAccount/")
 public class FinanceDataController {
 
     @Autowired
