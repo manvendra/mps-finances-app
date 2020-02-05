@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class StocksToSell extends FinancialAccount {
+public class StocksToSellVo extends FinancialAccountVo {
 
 
     Long id;

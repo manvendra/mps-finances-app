@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class BankAccount extends FinancialAccount {
+public class BankAccountVo extends FinancialAccountVo {
 
     private Long            id;
     private BigDecimal      currentBalance;

@@ -1,7 +1,7 @@
 package com.mps.finances.data.repository.couchbase.documents.account;
 
 
-import com.mps.finances.Person;
+
 import com.mps.finances.types.AccountType;
 import lombok.Data;
 
@@ -12,5 +12,5 @@ public abstract class FinancialAccount {
     private String description;
 
     private AccountType accountType;
-    private Person      person;
+
 }

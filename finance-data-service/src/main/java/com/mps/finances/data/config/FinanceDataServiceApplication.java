@@ -1,6 +1,15 @@
 package com.mps.finances.data.config;
 
+import com.mps.finances.account.BankAccountVo;
+import com.mps.finances.account.CreditCardAccountVo;
+import com.mps.finances.account.FinancialAccountVo;
+import com.mps.finances.account.StocksToSellVo;
+import com.mps.finances.data.repository.jpa.entities.account.BankAccount;
+import com.mps.finances.data.repository.jpa.entities.account.CreditCardAccount;
+import com.mps.finances.data.repository.jpa.entities.account.FinancialAccount;
+import com.mps.finances.data.repository.jpa.entities.account.StocksToSell;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.Provider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -24,6 +33,34 @@ public class FinanceDataServiceApplication {
 
 	@Bean
 	public ModelMapper modelMapper() {
-		return new ModelMapper();
+		ModelMapper modelMapper = new ModelMapper();
+
+		modelMapper.createTypeMap(FinancialAccountVo.class, FinancialAccount.class)
+				   .include(BankAccountVo.class, FinancialAccount.class)
+				   .include(CreditCardAccountVo.class, FinancialAccount.class)
+				   .include(StocksToSellVo.class, FinancialAccount.class);
+
+
+		modelMapper.typeMap(BankAccountVo.class, FinancialAccount.class)
+				   .setProvider(new Provider<FinancialAccount>() {
+					   public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
+						   return new BankAccount();
+					   }
+				   });
+		modelMapper.typeMap(CreditCardAccountVo.class, FinancialAccount.class)
+				   .setProvider(new Provider<FinancialAccount>() {
+					   public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
+						   return new CreditCardAccount();
+					   }
+				   });
+		modelMapper.typeMap(StocksToSellVo.class, FinancialAccount.class)
+				   .setProvider(new Provider<FinancialAccount>() {
+					   public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
+						   return new StocksToSell();
+					   }
+				   });
+
+
+		return modelMapper;
 	}
 }

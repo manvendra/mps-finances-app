@@ -1,6 +1,7 @@
 package com.mps.finances;
 
-import com.mps.finances.account.FinancialAccount;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.mps.finances.account.FinancialAccountVo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class Person {
+@JsonRootName("person")
+public class PersonVo {
     private Long   id;
     private String userId;
     private String firstName;
@@ -17,5 +19,5 @@ public class Person {
     private String phone;
     private String email;
 
-    private List<FinancialAccount> financialAccounts;
+    private List<FinancialAccountVo> financialAccounts;
 }

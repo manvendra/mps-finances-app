@@ -1,6 +1,6 @@
 package com.mps.finances.data.controller;
 
-import com.mps.finances.account.FinancialAccount;
+import com.mps.finances.account.FinancialAccountVo;
 import com.mps.finances.data.service.FinanceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,17 @@ public class FinanceDataController {
     FinanceDataService financeDataService;
 
     @GetMapping(value = "/{accountId}")
-    public List<FinancialAccount> getAllAccountsForUser(@PathVariable Long accountId) {
+    public List<FinancialAccountVo> getAllAccountsForUser(@PathVariable Long accountId) {
         return financeDataService.getAllAcountsInfoByAccoutId(accountId);
     }
 
     @GetMapping
-    public List<FinancialAccount> getAllAccountsForUser(@RequestParam("firstName") String firstName) {
+    public List<FinancialAccountVo> getAllAccountsForUser(@RequestParam("firstName") String firstName) {
         return financeDataService.getAllAcountsInfoByFirstName(firstName);
     }
 
     @PostMapping
-    public FinancialAccount saveFinancialAccountData(@RequestBody FinancialAccount financialAccount){
-       return financeDataService.saveAccountInformation(financialAccount);
+    public FinancialAccountVo saveFinancialAccountVoData(@RequestBody FinancialAccountVo financialAccountVo){
+       return financeDataService.saveAccountInformation(financialAccountVo);
     }
 }

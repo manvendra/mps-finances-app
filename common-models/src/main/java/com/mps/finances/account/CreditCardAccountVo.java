@@ -1,5 +1,6 @@
 package com.mps.finances.account;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.mps.finances.types.AccountType;
 import com.mps.finances.types.CreditCardType;
 import lombok.Data;
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class CreditCardAccount extends FinancialAccount {
+public class CreditCardAccountVo extends FinancialAccountVo {
 
 
     private Long id;
