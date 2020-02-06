@@ -13,6 +13,7 @@ public interface FinanceDataService {
     FinancialAccountVo getAccountInfo(String accountHolderName, String financialInstitutionName);
 
     FinancialAccountVo saveFinancialAccount(FinancialAccountVo financialAccount);
+    List<FinancialAccountVo> saveFinancialAccounts(List<FinancialAccountVo> financialAccountVos);
 
     List<FinancialAccountVo> getAccountsWithCloseDueDates();
 }

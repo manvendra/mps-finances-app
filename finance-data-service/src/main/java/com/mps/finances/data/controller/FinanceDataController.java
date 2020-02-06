@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("data/financialAccount/")
+@RequestMapping("data/financialAccount")
 public class FinanceDataController {
 
     @Autowired
@@ -25,7 +25,12 @@ public class FinanceDataController {
     }
 
     @PostMapping
-    public FinancialAccountVo saveFinancialAccountVoData(@RequestBody FinancialAccountVo financialAccountVo){
+    public FinancialAccountVo saveFinancialAccountVo(@RequestBody FinancialAccountVo financialAccountVo){
        return financeDataService.saveFinancialAccount(financialAccountVo);
+    }
+
+    @PostMapping(value = "/batch")
+    public List<FinancialAccountVo> saveListOfFinancialAccountVo(@RequestBody List<FinancialAccountVo> financialAccountVos){
+        return financeDataService.saveFinancialAccounts(financialAccountVos);
     }
 }

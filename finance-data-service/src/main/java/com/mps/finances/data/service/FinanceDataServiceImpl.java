@@ -36,19 +36,17 @@ public class FinanceDataServiceImpl implements FinanceDataService {
 
     @Override
     public List<FinancialAccountVo> getAllAcountsInfoByFirstName(String accountHolderName) {
-        log.debug("accountHolderName");
         List<FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByOwnerFirstName(accountHolderName);
-
-        return getDtoListFromEntityList(financeAccountsEntities);
+        return modelMappingService.getVoListFromEntityList(financeAccountsEntities) ;
     }
 
 
     @Override
     public List<FinancialAccountVo> getAllAcountsInfoByAccoutId(Long accountId) {
         List<FinancialAccount> financeAccountsEntities = financeDataJpaRepository.findByOwnerId(accountId);
-
-        return getDtoListFromEntityList(financeAccountsEntities);
+        return modelMappingService.getVoListFromEntityList(financeAccountsEntities);
     }
+
 
     @Override
     public FinancialAccountVo getAccountInfo(String accountHolderName, String financialInstitutionName) {
@@ -65,16 +63,26 @@ public class FinanceDataServiceImpl implements FinanceDataService {
     }
 
     @Override
+    public List<FinancialAccountVo> saveFinancialAccounts(List<FinancialAccountVo> financialAccountVos) {
+        List<FinancialAccount> financialAccounts = modelMappingService.getEntityListFromVoList(financialAccountVos);
+
+        financialAccounts = financialAccounts.parallelStream()
+                                                           .peek(this::updateInternalEntities)
+                                                           .collect(Collectors.toList());
+
+        financialAccounts = financeDataJpaRepository.saveAll(financialAccounts);
+
+
+        return financialAccounts.parallelStream()
+                                       .map(modelMappingService::getVoFromEntity)
+                                       .collect(Collectors.toList());
+    }
+
+    @Override
     public List<FinancialAccountVo> getAccountsWithCloseDueDates() {
         return null;
     }
 
-
-    private List<FinancialAccountVo> getDtoListFromEntityList(List<FinancialAccount> financeAccountsEntities) {
-        return financeAccountsEntities.stream()
-                                      .map(modelMappingService::getVoFromEntity)
-                                      .collect(Collectors.toList());
-    }
 
     // if entity containable.getCompound already exists, it
     // must first be reattached to the entity manager or else
@@ -89,17 +97,25 @@ public class FinanceDataServiceImpl implements FinanceDataService {
                                              .orElse(ownerEntity);
 
 
-            ownerEntity.setEmail(financialAccountEntity.getOwner()
-                                                       .getEmail());
-            ownerEntity.setPhone(financialAccountEntity.getOwner()
-                                                       .getPhone());
-            ownerEntity.setFirstName(financialAccountEntity.getOwner()
-                                                           .getFirstName());
-            ownerEntity.setLastName(financialAccountEntity.getOwner()
-                                                          .getLastName());
+            copyPersonEntityData(financialAccountEntity, ownerEntity);
 
 
             financialAccountEntity.setOwner(ownerEntity);
         }
+    }
+
+
+    //Just in case anything change in the person coming from Request, just update it in the fetched
+    // entity
+    private void copyPersonEntityData(FinancialAccount financialAccountEntity, Person ownerEntity)
+    {
+        ownerEntity.setEmail(financialAccountEntity.getOwner()
+                                                   .getEmail());
+        ownerEntity.setPhone(financialAccountEntity.getOwner()
+                                                   .getPhone());
+        ownerEntity.setFirstName(financialAccountEntity.getOwner()
+                                                       .getFirstName());
+        ownerEntity.setLastName(financialAccountEntity.getOwner()
+                                                      .getLastName());
     }
 }
