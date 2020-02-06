@@ -26,6 +26,6 @@ public class FinanceDataController {
 
     @PostMapping
     public FinancialAccountVo saveFinancialAccountVoData(@RequestBody FinancialAccountVo financialAccountVo){
-       return financeDataService.saveAccountInformation(financialAccountVo);
+       return financeDataService.saveFinancialAccount(financialAccountVo);
     }
 }

@@ -22,7 +22,7 @@ public abstract class FinancialAccount {
     private String      financialInstitutionName;
     private String      description;
 
-    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne (cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private Person owner;
 
 }

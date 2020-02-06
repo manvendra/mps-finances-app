@@ -4,6 +4,8 @@ package com.mps.finances.data.service;
 import com.mps.finances.account.FinancialAccountVo;
 import com.mps.finances.data.config.ModelMappingService;
 import com.mps.finances.data.repository.jpa.FinanceDataJpaRepository;
+import com.mps.finances.data.repository.jpa.PersonJpaRepository;
+import com.mps.finances.data.repository.jpa.entities.Person;
 import com.mps.finances.data.repository.jpa.entities.account.FinancialAccount;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class FinanceDataServiceImpl implements FinanceDataService {
 
     @Autowired
     FinanceDataJpaRepository financeDataJpaRepository;
+
+    @Autowired
+    PersonJpaRepository personJpaRepository;
 
     @Autowired
     ModelMappingService modelMappingService;
@@ -50,9 +55,11 @@ public class FinanceDataServiceImpl implements FinanceDataService {
         return null;
     }
 
+
     @Override
-    public FinancialAccountVo saveAccountInformation(FinancialAccountVo financialAccount) {
+    public FinancialAccountVo saveFinancialAccount(FinancialAccountVo financialAccount) {
         FinancialAccount financialAccountEntity = modelMappingService.getEntityFromVo(financialAccount);
+        updateInternalEntities(financialAccountEntity);
         financialAccountEntity = financeDataJpaRepository.save(financialAccountEntity);
         return modelMappingService.getVoFromEntity(financialAccountEntity);
     }
@@ -69,5 +76,30 @@ public class FinanceDataServiceImpl implements FinanceDataService {
                                       .collect(Collectors.toList());
     }
 
+    // if entity containable.getCompound already exists, it
+    // must first be reattached to the entity manager or else
+    // an exception will occur (issue in Spring Data JPA ->
+    // save() method internal calls persists instead of merge)
+    private void updateInternalEntities(FinancialAccount financialAccountEntity) {
+        if (financialAccountEntity.getId() == null && financialAccountEntity.getOwner()
+                                                                            .getId() != null) {
+            Person ownerEntity = financialAccountEntity.getOwner();
 
+            ownerEntity = personJpaRepository.findById(ownerEntity.getId())
+                                             .orElse(ownerEntity);
+
+
+            ownerEntity.setEmail(financialAccountEntity.getOwner()
+                                                       .getEmail());
+            ownerEntity.setPhone(financialAccountEntity.getOwner()
+                                                       .getPhone());
+            ownerEntity.setFirstName(financialAccountEntity.getOwner()
+                                                           .getFirstName());
+            ownerEntity.setLastName(financialAccountEntity.getOwner()
+                                                          .getLastName());
+
+
+            financialAccountEntity.setOwner(ownerEntity);
+        }
+    }
 }
