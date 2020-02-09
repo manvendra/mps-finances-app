@@ -2,7 +2,6 @@ package com.mps.finances.data.repository.jpa.entities.account;
 
 
 import com.mps.finances.data.repository.jpa.entities.Person;
-import com.mps.finances.types.AccountType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,10 +18,13 @@ public abstract class FinancialAccount {
     @GeneratedValue
     Long id;
 
-    private String      financialInstitutionName;
-    private String      description;
+    private String financialInstitutionName;
+    private String description;
 
-    @ManyToOne (cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinColumn(name = "OWNER_ID", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = Person.class,optional = false)
     private Person owner;
 
+    @Column(name = "OWNER_ID")
+    private Long ownerId;
 }

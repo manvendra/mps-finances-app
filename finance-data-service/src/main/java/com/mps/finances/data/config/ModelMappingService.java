@@ -1,18 +1,18 @@
 package com.mps.finances.data.config;
 
+import com.mps.finances.PersonVo;
 import com.mps.finances.account.BankAccountVo;
 import com.mps.finances.account.CreditCardAccountVo;
 import com.mps.finances.account.FinancialAccountVo;
 import com.mps.finances.account.StocksToSellVo;
+import com.mps.finances.data.repository.jpa.entities.Person;
 import com.mps.finances.data.repository.jpa.entities.account.BankAccount;
 import com.mps.finances.data.repository.jpa.entities.account.CreditCardAccount;
 import com.mps.finances.data.repository.jpa.entities.account.FinancialAccount;
 import com.mps.finances.data.repository.jpa.entities.account.StocksToSell;
-import com.mps.finances.data.service.FinanceDataServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -23,112 +23,87 @@ import java.util.stream.Collectors;
 public class ModelMappingService {
 
     @Autowired
-    @Qualifier("voToEntityModelMapper")
-    org.modelmapper.ModelMapper voToEntityModelMapper;
+    ModelMapper modelMapper;
 
-    @Autowired
-    @Qualifier("entitytoVoModelMapper")
-    org.modelmapper.ModelMapper emtityToVOodelMapper;
-
-
-    @Bean(name = "voToEntityModelMapper")
-    public ModelMapper getVoToEntityModelMapper() {
+    @Bean
+    public ModelMapper getCustomModelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        modelMapper.createTypeMap(FinancialAccountVo.class, FinancialAccount.class)
-                   .include(BankAccountVo.class, FinancialAccount.class)
-                   .include(CreditCardAccountVo.class, FinancialAccount.class)
-                   .include(StocksToSellVo.class, FinancialAccount.class);
+       /* modelMapper
+                .createTypeMap(FinancialAccountVo.class, FinancialAccount.class)
+                .include(BankAccountVo.class, FinancialAccount.class)
+                .include(CreditCardAccountVo.class, FinancialAccount.class)
+                .include(StocksToSellVo.class, FinancialAccount.class);
 
 
-        modelMapper.typeMap(BankAccountVo.class, FinancialAccount.class)
-                   .setProvider(new Provider<FinancialAccount>() {
-                       public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
-                           return new BankAccount();
-                       }
-                   }); modelMapper.typeMap(CreditCardAccountVo.class, FinancialAccount.class)
-                                  .setProvider(new Provider<FinancialAccount>() {
-                                      public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
-                                          return new CreditCardAccount();
-                                      }
-                                  });
-        modelMapper.typeMap(StocksToSellVo.class, FinancialAccount.class)
-                   .setProvider(new Provider<FinancialAccount>() {
-                       public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
-                           return new StocksToSell();
-                       }
-                   });
+        modelMapper
+                .typeMap(BankAccountVo.class, FinancialAccount.class)
+                .setProvider(new Provider<FinancialAccount>() {
+                    public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
+                        return new BankAccount();
+                    }
+                }); modelMapper
+                .typeMap(CreditCardAccountVo.class, FinancialAccount.class)
+                .setProvider(new Provider<FinancialAccount>() {
+                    public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
+                        return new CreditCardAccount();
+                    }
+                }); modelMapper
+                .typeMap(StocksToSellVo.class, FinancialAccount.class)
+                .setProvider(new Provider<FinancialAccount>() {
+                    public FinancialAccount get(ProvisionRequest<FinancialAccount> request) {
+                        return new StocksToSell();
+                    }
+                });*/
 
 
         return modelMapper;
     }
 
-
-    @Bean(name = "entitytoVoModelMapper")
-    public ModelMapper getEntitytoVoModelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-
-        modelMapper.createTypeMap(FinancialAccount.class, FinancialAccountVo.class)
-                   .include(BankAccount.class, FinancialAccountVo.class)
-                   .include(CreditCardAccount.class, FinancialAccountVo.class)
-                   .include(StocksToSell.class, FinancialAccountVo.class);
-
-
-        modelMapper.typeMap(BankAccount.class, FinancialAccountVo.class)
-                   .setProvider(new Provider<FinancialAccountVo>() {
-                       public FinancialAccountVo get(ProvisionRequest<FinancialAccountVo> request) {
-                           return new BankAccountVo();
-                       }
-                   }); modelMapper.typeMap(CreditCardAccount.class, FinancialAccountVo.class)
-                                  .setProvider(new Provider<FinancialAccountVo>() {
-                                      public FinancialAccountVo get(ProvisionRequest<FinancialAccountVo> request) {
-                                          return new CreditCardAccountVo();
-                                      }
-                                  });
-        modelMapper.typeMap(StocksToSell.class, FinancialAccountVo.class)
-                   .setProvider(new Provider<FinancialAccountVo>() {
-                       public FinancialAccountVo get(ProvisionRequest<FinancialAccountVo> request) {
-                           return new StocksToSellVo();
-                       }
-                   });
-
-
-        return modelMapper;
-    }
-
-    public FinancialAccountVo getVoFromEntity(FinancialAccount financeAccountsEntity) {
+    public FinancialAccountVo getFinancialAccountVoFromEntity(FinancialAccount financeAccountsEntity) {
         if (financeAccountsEntity instanceof CreditCardAccount) {
-            return voToEntityModelMapper.map(financeAccountsEntity, CreditCardAccountVo.class);
+            return modelMapper.map(financeAccountsEntity, CreditCardAccountVo.class);
         } else if (financeAccountsEntity instanceof BankAccount) {
-            return voToEntityModelMapper.map(financeAccountsEntity, BankAccountVo.class);
+            return modelMapper.map(financeAccountsEntity, BankAccountVo.class);
         } else if (financeAccountsEntity instanceof StocksToSell) {
-            return voToEntityModelMapper.map(financeAccountsEntity, StocksToSellVo.class);
-        } return voToEntityModelMapper.map(financeAccountsEntity, FinancialAccountVo.class);
+            return modelMapper.map(financeAccountsEntity, StocksToSellVo.class);
+        } return modelMapper.map(financeAccountsEntity, FinancialAccountVo.class);
     }
 
 
-    public FinancialAccount getEntityFromVo(FinancialAccountVo financialAccountVo) {
+    public FinancialAccount getFinancialAccountEntityFromVo(FinancialAccountVo financialAccountVo) {
 
         if (financialAccountVo instanceof CreditCardAccountVo) {
-            return voToEntityModelMapper.map(financialAccountVo, CreditCardAccount.class);
+            return modelMapper.map(financialAccountVo, CreditCardAccount.class);
         } else if (financialAccountVo instanceof BankAccountVo) {
-            return voToEntityModelMapper.map(financialAccountVo, BankAccount.class);
+            return modelMapper.map(financialAccountVo, BankAccount.class);
         } else if (financialAccountVo instanceof StocksToSellVo) {
-            return voToEntityModelMapper.map(financialAccountVo, StocksToSell.class);
+            return modelMapper.map(financialAccountVo, StocksToSell.class);
         }
 
-        return voToEntityModelMapper.map(financialAccountVo, FinancialAccount.class);
+        return modelMapper.map(financialAccountVo, FinancialAccount.class);
     }
 
-    public List<FinancialAccountVo> getVoListFromEntityList(List<FinancialAccount> financeAccountsEntities) {
-        return financeAccountsEntities.stream()
-                                      .map(this::getVoFromEntity)
-                                      .collect(Collectors.toList());
+    public List<FinancialAccountVo> getFinancialAccountVoListFromEntityList(List<FinancialAccount> financeAccountsEntities) {
+        return financeAccountsEntities
+                .stream()
+                .map(this::getFinancialAccountVoFromEntity)
+                .collect(Collectors.toList());
     }
 
-    public List<FinancialAccount> getEntityListFromVoList(List<FinancialAccountVo> financeAccountVos) {
-        return financeAccountVos.stream()
-                                      .map(this::getEntityFromVo)
-                                      .collect(Collectors.toList());
+    public List<FinancialAccount> getFinancialAccountEntityListFromVoList(List<FinancialAccountVo> financeAccountVos) {
+        return financeAccountVos
+                .stream()
+                .map(this::getFinancialAccountEntityFromVo)
+                .collect(Collectors.toList());
+    }
+
+
+    public Person getPersonEntityFromVo(PersonVo personVo) {
+        return modelMapper.map(personVo, Person.class);
+    }
+
+    public PersonVo getPersonVoFromEntity(Person person) {
+        return modelMapper.map(person, PersonVo.class);
     }
 }

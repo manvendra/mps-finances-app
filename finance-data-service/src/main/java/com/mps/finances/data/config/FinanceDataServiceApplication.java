@@ -10,7 +10,6 @@ import com.mps.finances.data.repository.jpa.entities.account.FinancialAccount;
 import com.mps.finances.data.repository.jpa.entities.account.StocksToSell;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -31,6 +30,7 @@ public class FinanceDataServiceApplication {
 
 		SpringApplication.run(FinanceDataServiceApplication.class, args);
 	}
+
 
 
 }

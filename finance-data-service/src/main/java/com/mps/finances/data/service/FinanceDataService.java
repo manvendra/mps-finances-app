@@ -16,4 +16,6 @@ public interface FinanceDataService {
     List<FinancialAccountVo> saveFinancialAccounts(List<FinancialAccountVo> financialAccountVos);
 
     List<FinancialAccountVo> getAccountsWithCloseDueDates();
+
+    void deleteFinancialAccount(Long financialAccountId);
 }
