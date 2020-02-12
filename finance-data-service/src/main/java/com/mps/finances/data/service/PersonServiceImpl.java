@@ -51,4 +51,15 @@ public class PersonServiceImpl implements PersonService {
                 .map(modelMappingService::getPersonVoFromEntity)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<PersonVo> getPersonByName(String name) {
+        List<Person> persons = personJpaRepository.findByName(name);
+
+        return persons
+                .stream()
+                .map(modelMappingService::getPersonVoFromEntity)
+                .collect(Collectors.toList());
+
+    }
 }

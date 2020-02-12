@@ -43,4 +43,10 @@ public class PersonController {
         List<PersonVo> personVos= personService.getPersonByFirstName(firstName);
         return ResponseEntity.ok(personVos);
     }
+
+    @GetMapping(value = "/name/{name}")
+    public ResponseEntity<List<PersonVo>> getAllOwnerWithName(@PathVariable("name") String name) {
+        List<PersonVo> personVos= personService.getPersonByName(name);
+        return ResponseEntity.ok(personVos);
+    }
 }

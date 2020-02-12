@@ -12,4 +12,6 @@ public interface PersonService {
     PersonVo getPersonById(Long personId);
 
     List<PersonVo> getPersonByFirstName(String firstName);
+
+    List<PersonVo> getPersonByName(String name);
 }

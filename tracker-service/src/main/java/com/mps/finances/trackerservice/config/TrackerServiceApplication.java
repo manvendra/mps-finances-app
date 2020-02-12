@@ -1,4 +1,4 @@
-package com.mps.finances.trackerservice;
+package com.mps.finances.trackerservice.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
