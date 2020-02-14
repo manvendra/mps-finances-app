@@ -1,4 +1,4 @@
-package com.mps.finances.trackerservice.connector;
+package com.mps.finances.trackerservice.connector.data.person;
 
 import com.mps.finances.PersonVo;
 import org.springframework.boot.context.properties.ConfigurationProperties;
