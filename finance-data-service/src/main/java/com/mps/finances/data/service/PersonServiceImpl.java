@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -42,8 +44,18 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonVo> getPersonByFirstName(String firstName) {
-        List<Person> persons = personJpaRepository.findByFirstName(firstName);
+    public List<PersonVo> getPerson(Map<String, String> requestParams) {
+
+        Map<String, String> personEntityColumnNamesAndValues
+
+                = requestParams
+                .entrySet()
+                .stream()
+                .filter(e -> isaPersonColumn(e))
+                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+
+        List<Person> persons = personJpaRepository.findAll(
+                PersonJpaRepository.getSpecification(personEntityColumnNamesAndValues));
 
 
         return persons
@@ -52,14 +64,13 @@ public class PersonServiceImpl implements PersonService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<PersonVo> getPersonByName(String name) {
-        List<Person> persons = personJpaRepository.findByName(name);
-
-        return persons
-                .stream()
-                .map(modelMappingService::getPersonVoFromEntity)
-                .collect(Collectors.toList());
-
+    private boolean isaPersonColumn(Map.Entry<String, String> e) {
+        return Arrays
+                .stream(Person.class
+                                .getDeclaredFields()
+                       )
+                .anyMatch(f -> f
+                        .getName()
+                        .equals(e.getKey()));
     }
 }

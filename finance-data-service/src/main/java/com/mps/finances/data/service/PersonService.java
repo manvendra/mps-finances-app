@@ -3,6 +3,7 @@ package com.mps.finances.data.service;
 import com.mps.finances.PersonVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PersonService {
 
@@ -11,7 +12,5 @@ public interface PersonService {
 
     PersonVo getPersonById(Long personId);
 
-    List<PersonVo> getPersonByFirstName(String firstName);
-
-    List<PersonVo> getPersonByName(String name);
+    List<PersonVo> getPerson(Map<String, String> requestParams);
 }

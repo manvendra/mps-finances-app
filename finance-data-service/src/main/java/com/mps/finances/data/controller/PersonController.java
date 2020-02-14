@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("data/owners")
@@ -23,13 +24,13 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.CREATED).body(personVo);
     }
 
-    @GetMapping
+   /* @GetMapping
     public ResponseEntity getAllOwners() {
         //TODO: to be implemented
         return ResponseEntity
                 .status(HttpStatus.NOT_IMPLEMENTED)
                 .body(null);
-    }
+    }*/
 
 
     @GetMapping(value = "/{ownerId}")
@@ -38,15 +39,12 @@ public class PersonController {
         return ResponseEntity.ok(personVo);
     }
 
-    @GetMapping(value = "/firstName/{firstName}")
-    public ResponseEntity<List<PersonVo>> getAllOwnerWithFirstName(@PathVariable("firstName") String firstName) {
-        List<PersonVo> personVos= personService.getPersonByFirstName(firstName);
+    @GetMapping
+    public ResponseEntity<List<PersonVo>> getOwners(@RequestParam Map<String, String> requestParams) {
+
+        List<PersonVo> personVos = personService.getPerson(requestParams);
         return ResponseEntity.ok(personVos);
     }
 
-    @GetMapping(value = "/name/{name}")
-    public ResponseEntity<List<PersonVo>> getAllOwnerWithName(@PathVariable("name") String name) {
-        List<PersonVo> personVos= personService.getPersonByName(name);
-        return ResponseEntity.ok(personVos);
-    }
+
 }
