@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("data/owners/{ownerId}/financialAccounts")
+@RequestMapping("/data/owners/{ownerId}/financialAccounts")
 public class FinanceDataController {
 
     @Autowired

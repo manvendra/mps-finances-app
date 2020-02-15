@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("data/owners")
+@RequestMapping("/data/owners")
 public class PersonController {
 
     @Autowired
