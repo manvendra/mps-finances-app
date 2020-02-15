@@ -3,6 +3,7 @@ package com.mps.finances.data.service;
 
 import com.mps.finances.PersonVo;
 import com.mps.finances.data.config.ModelMappingService;
+import com.mps.finances.data.repository.jpa.JpaSpecificationUtil;
 import com.mps.finances.data.repository.jpa.PersonJpaRepository;
 import com.mps.finances.data.repository.jpa.entities.Person;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     PersonJpaRepository personJpaRepository;
+
+    @Autowired
+    JpaSpecificationUtil jpaSpecificationUtil;
 
     @Autowired
     ModelMappingService modelMappingService;
@@ -46,16 +50,16 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<PersonVo> getPerson(Map<String, String> requestParams) {
 
-        Map<String, String> personEntityColumnNamesAndValues
-
+        Map<String, String> validColumnNamesAndValues
                 = requestParams
                 .entrySet()
                 .stream()
-                .filter(e -> isaPersonColumn(e))
+                .filter(e -> jpaSpecificationUtil.isaValidColumnName(e,Person.class))
                 .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
 
+
         List<Person> persons = personJpaRepository.findAll(
-                PersonJpaRepository.getSpecification(personEntityColumnNamesAndValues));
+                jpaSpecificationUtil.getSpecification(validColumnNamesAndValues));
 
 
         return persons
@@ -64,13 +68,5 @@ public class PersonServiceImpl implements PersonService {
                 .collect(Collectors.toList());
     }
 
-    private boolean isaPersonColumn(Map.Entry<String, String> e) {
-        return Arrays
-                .stream(Person.class
-                                .getDeclaredFields()
-                       )
-                .anyMatch(f -> f
-                        .getName()
-                        .equals(e.getKey()));
-    }
+
 }
