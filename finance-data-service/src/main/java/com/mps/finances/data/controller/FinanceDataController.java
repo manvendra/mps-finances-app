@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,9 +23,12 @@ public class FinanceDataController {
 
 
     @GetMapping
-    public ResponseEntity<List<FinancialAccountVo>> getAllAccountsForOwner(@PathVariable("ownerId") Long ownerId) {
-        List<FinancialAccountVo> financialAccountVos = financeDataService.getAllAcountsInfoByAccoutId(
-                ownerId);
+    public ResponseEntity<List<FinancialAccountVo>> getAllAccountsForOwner(@PathVariable("ownerId") Long ownerId,
+                                                                           @RequestParam Map<String, String> requestParams) {
+
+        List<FinancialAccountVo> financialAccountVos =
+                financeDataService.getFinancialAccounts(ownerId,requestParams);
+
 
         return ResponseEntity.ok(financialAccountVos);
     }

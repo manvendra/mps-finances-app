@@ -3,6 +3,7 @@ package com.mps.finances.data.service;
 import com.mps.finances.account.FinancialAccountVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FinanceDataService {
 
@@ -10,9 +11,14 @@ public interface FinanceDataService {
 
     List<FinancialAccountVo> getAllAcountsInfoByAccoutId(Long accountId);
 
-    FinancialAccountVo getAccountInfo(String accountHolderName, String financialInstitutionName);
+    public List<FinancialAccountVo> getFinancialAccounts(Long ownerId,
+                                                         Map<String, String> requestParams);
+
+    FinancialAccountVo getAccountInfo(String accountHolderName,
+                                      String financialInstitutionName);
 
     FinancialAccountVo saveFinancialAccount(FinancialAccountVo financialAccount);
+
     List<FinancialAccountVo> saveFinancialAccounts(List<FinancialAccountVo> financialAccountVos);
 
     List<FinancialAccountVo> getAccountsWithCloseDueDates();
