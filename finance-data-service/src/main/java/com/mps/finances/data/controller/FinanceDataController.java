@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @RestController
 @RequestMapping("/data/owners/{ownerId}/financialAccounts")
 public class FinanceDataController {
@@ -29,9 +30,9 @@ public class FinanceDataController {
         List<FinancialAccountVo> financialAccountVos =
                 financeDataService.getFinancialAccounts(ownerId,requestParams);
 
-
         return ResponseEntity.ok(financialAccountVos);
     }
+
 
 
     @PostMapping

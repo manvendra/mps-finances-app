@@ -34,7 +34,7 @@ public class PersonController {
 
 
     @GetMapping(value = "/{ownerId}")
-    public ResponseEntity<PersonVo> getAllOwners(@PathVariable("ownerId") Long ownerId) {
+    public ResponseEntity<PersonVo> getOwnerById(@PathVariable("ownerId") Long ownerId) {
         PersonVo personVo = personService.getPersonById(ownerId);
         return ResponseEntity.ok(personVo);
     }
