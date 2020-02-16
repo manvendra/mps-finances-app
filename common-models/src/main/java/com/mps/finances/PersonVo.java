@@ -12,7 +12,7 @@ import java.util.List;
 @JsonRootName("person")
 public class PersonVo {
     private Long   id;
-    private String userId;
+
     private String firstName;
     private String lastName;
 

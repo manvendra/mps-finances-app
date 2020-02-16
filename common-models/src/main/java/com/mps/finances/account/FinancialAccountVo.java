@@ -9,15 +9,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "accountType")
-@JsonSubTypes({@JsonSubTypes.Type(value = BankAccountVo.class, name = "BANK"), @JsonSubTypes.Type(value = StocksToSellVo.class, name = "STOCK"), @JsonSubTypes.Type(value = CreditCardAccountVo.class, name = "CREDIT")})
+@JsonSubTypes({@JsonSubTypes.Type(value = BankAccountVo.class, name = "BANK"),
+               @JsonSubTypes.Type(value = StocksToSellVo.class, name = "STOCK"),
+               @JsonSubTypes.Type(value = CreditCardAccountVo.class, name = "CREDIT")})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class FinancialAccountVo {
+
     private String      financialInstitutionName;
     private String      description;
     private AccountType accountType;
-    private PersonVo    owner;
+    private LocalDate   accountOpenDate;
+
+    private PersonVo owner;
 }
