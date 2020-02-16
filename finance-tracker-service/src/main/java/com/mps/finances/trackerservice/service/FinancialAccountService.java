@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FinancialAccountService {
 
-    public List<FinancialAccountVo> getAllAccountsInfo(String name);
+    List<FinancialAccountVo> getAllAccountsInfo(Long id);
 
 }

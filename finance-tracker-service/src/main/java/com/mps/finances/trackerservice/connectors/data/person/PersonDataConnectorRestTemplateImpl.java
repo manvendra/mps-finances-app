@@ -35,7 +35,7 @@ public class PersonDataConnectorRestTemplateImpl implements PersonDataConnector 
 
     @Override
     public List<PersonVo> getPersonByName(String name) {
-        String url = backendServiceConfig.personDataServiceURL + "/data/owners/name/" + name;
+        String         url            = backendServiceConfig.personDataServiceURL + "/data/owners/name/" + name;
         ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
 
         return null;

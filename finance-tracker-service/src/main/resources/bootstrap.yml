@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    config:
+      name: finance-tracker-service
+      uri: http://localhost:8080
+
+
+logging:
+  config: ${spring.cloud.config.uri}/tracker-service/default/master/finance-tracker-service-logback.xml
+
+

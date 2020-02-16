@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/owner")
+@RequestMapping("/finances/{ownerId}")
 public class FinancialAccountsController {
 
     @Autowired
     FinancialAccountService financialAccountService;
 
-
-
-    @GetMapping
-    public List<FinancialAccountVo> getAllAcountsInfo(@PathVariable(required = true) String accountHolderName) {
-        return financialAccountService.getAllAccountsInfo(accountHolderName);
+    @GetMapping(value = "/accounts")
+    public List<FinancialAccountVo> getAllAcountsInfo(@PathVariable("ownerId") Long ownerId) {
+        return financialAccountService.getAllAccountsInfo(ownerId);
     }
+
+
 }

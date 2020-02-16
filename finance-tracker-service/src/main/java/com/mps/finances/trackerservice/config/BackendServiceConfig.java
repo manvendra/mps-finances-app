@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class BackendServiceConfig {
 
   @Value("${person.data.service.url}")
-  public static String personDataServiceURL;
+  public String personDataServiceURL;
 
  // @Value("${stock.quote.service.url")
   public  String stockQuoteServiceUrl;
